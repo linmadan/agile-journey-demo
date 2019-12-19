@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: agile-journey-demo
+  namespace: <replace-your-k8s-namespace>
+  labels:
+    k8s-app: agile-journey-demo
+spec:
+  ports:
+     - name: "http"
+       port: 80
+       targetPort: 8082
+  selector:
+    k8s-app: agile-journey-demo
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: agile-journey-demo
+  namespace: <replace-your-k8s-namespace>
+  labels:
+    k8s-app: agile-journey-demo
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        k8s-app: agile-journey-demo
+    spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference: {}
+              weight: 100
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - cn-hangzhou.i-bp1djh1xn7taumbue1ze
+                      - cn-hangzhou.i-bp1djh1xn7taumbue1zd
+                      - cn-hangzhou.i-bp1euf5u1ph9kbhtndhb
+                      - cn-hangzhou.i-bp1hyp5oips9cdwxxgxy
+      containers:
+      - name: agile-journey-demo
+        image: 192.168.0.243:5000/mmm/agile-journey-demo:dev
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8082
+        volumeMounts:
+        - mountPath: /opt/logs
+          name: accesslogs
+        env:
+        - name: LOG_LEVEL
+          value: "debug"
+        - name: ERROR_BASE_CODE
+          value: "1"
+        - name: ERROR_BASE_CODE_MULTIPLE
+          value: "1000"
+      volumes:
+      - name: accesslogs
+        emptyDir: {}
