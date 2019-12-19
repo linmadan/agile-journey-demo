@@ -1,0 +1,217 @@
+swagger: "2.0"
+info:
+  title: ""
+  description: 敏捷之旅分享DEMO
+  contact:
+    name: linmadan
+    email: 772181827@qq.com
+  version: 0.0.1
+consumes:
+- application/json
+- application/xml
+- application/gob
+produces:
+- application/json
+- application/xml
+- application/gob
+paths:
+  /lecturers:
+    get:
+      tags:
+      - lecturer
+      summary: list lecturer
+      description: 返回讲师列表
+      operationId: lecturer#listLecturer
+      parameters:
+      - name: offset
+        in: query
+        description: 查询偏离量
+        required: false
+        type: integer
+      - name: limit
+        in: query
+        description: 查询限制
+        required: false
+        type: integer
+      responses:
+        "200":
+          description: OK response.
+          schema:
+            $ref: '#/definitions/LecturerListLecturerResponseBody'
+      schemes:
+      - http
+    post:
+      tags:
+      - lecturer
+      summary: create lecturer
+      description: 创建新讲师
+      operationId: lecturer#createLecturer
+      parameters:
+      - name: CreateLecturerRequestBody
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/LecturerCreateLecturerRequestBody'
+      responses:
+        "200":
+          description: OK response.
+          schema:
+            $ref: '#/definitions/LecturerCreateLecturerResponseBody'
+      schemes:
+      - http
+  /lecturers/{lecturerId}:
+    get:
+      tags:
+      - lecturer
+      summary: get lecturer
+      description: 返回讲师
+      operationId: lecturer#getLecturer
+      parameters:
+      - name: lecturerId
+        in: path
+        description: 讲师标识
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK response.
+          schema:
+            $ref: '#/definitions/LecturerGetLecturerResponseBody'
+      schemes:
+      - http
+    put:
+      tags:
+      - lecturer
+      summary: update lecturer
+      description: 更新讲师
+      operationId: lecturer#updateLecturer
+      parameters:
+      - name: lecturerId
+        in: path
+        description: 讲师标识
+        required: true
+        type: integer
+      - name: UpdateLecturerRequestBody
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/LecturerUpdateLecturerRequestBody'
+      responses:
+        "200":
+          description: OK response.
+          schema:
+            $ref: '#/definitions/LecturerUpdateLecturerResponseBody'
+      schemes:
+      - http
+    delete:
+      tags:
+      - lecturer
+      summary: remove lecturer
+      description: 移除讲师
+      operationId: lecturer#removeLecturer
+      parameters:
+      - name: lecturerId
+        in: path
+        description: 讲师标识
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK response.
+          schema:
+            $ref: '#/definitions/LecturerRemoveLecturerResponseBody'
+      schemes:
+      - http
+definitions:
+  LecturerCreateLecturerRequestBody:
+    title: LecturerCreateLecturerRequestBody
+    type: object
+    properties:
+      lecturer:
+        $ref: '#/definitions/lecturerRequestBody'
+  LecturerCreateLecturerResponseBody:
+    title: 'Mediatype identifier: LecturerCreateLecturerResponseBody'
+    type: object
+    properties:
+      lecturer:
+        $ref: '#/definitions/lecturerResponseBody'
+  LecturerGetLecturerResponseBody:
+    title: 'Mediatype identifier: LecturerGetLecturerResponseBody'
+    type: object
+    properties:
+      lecturer:
+        $ref: '#/definitions/lecturerResponseBody'
+  LecturerListLecturerResponseBody:
+    title: 'Mediatype identifier: LecturerListLecturerResponseBody'
+    type: object
+    properties:
+      count:
+        type: integer
+        description: 结果总数
+        format: int64
+      lecturers:
+        type: array
+        items:
+          $ref: '#/definitions/lecturerResponseBody'
+  LecturerRemoveLecturerResponseBody:
+    title: 'Mediatype identifier: LecturerRemoveLecturerResponseBody'
+    type: object
+    properties:
+      lecturer:
+        $ref: '#/definitions/lecturerResponseBody'
+  LecturerUpdateLecturerRequestBody:
+    title: LecturerUpdateLecturerRequestBody
+    type: object
+    properties:
+      introduction:
+        type: string
+        description: 讲师个人简介
+      topic:
+        type: string
+        description: 讲师分享的主题
+  LecturerUpdateLecturerResponseBody:
+    title: 'Mediatype identifier: LecturerUpdateLecturerResponseBody'
+    type: object
+    properties:
+      lecturer:
+        $ref: '#/definitions/lecturerResponseBody'
+  lecturerRequestBody:
+    title: lecturerRequestBody
+    type: object
+    properties:
+      id:
+        type: integer
+        description: 唯一标识ID
+        format: int64
+      introduction:
+        type: string
+        description: 讲师个人简介
+      name:
+        type: string
+        description: 讲师姓名
+        required:
+        - name
+      topic:
+        type: string
+        description: 讲师分享的主题
+    description: 敏捷之旅的分享讲师
+  lecturerResponseBody:
+    title: lecturerResponseBody
+    type: object
+    properties:
+      id:
+        type: integer
+        description: 唯一标识ID
+        format: int64
+      introduction:
+        type: string
+        description: 讲师个人简介
+      name:
+        type: string
+        description: 讲师姓名
+        required:
+        - name
+      topic:
+        type: string
+        description: 讲师分享的主题
+    description: 敏捷之旅的分享讲师
