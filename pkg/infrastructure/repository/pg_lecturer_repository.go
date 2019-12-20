@@ -16,6 +16,7 @@ type LecturerRepository struct {
 func (repository *LecturerRepository) nextIdentify() (int64, error) {
 	return 0, nil
 }
+
 func (repository *LecturerRepository) Save(lecturer *lecturer.Lecturer) (*lecturer.Lecturer, error) {
 	tx := repository.transactionContext.PgTx
 	if lecturer.Identify() == nil {
@@ -39,6 +40,7 @@ func (repository *LecturerRepository) Save(lecturer *lecturer.Lecturer) (*lectur
 	}
 	return lecturer, nil
 }
+
 func (repository *LecturerRepository) Remove(lecturer *lecturer.Lecturer) (*lecturer.Lecturer, error) {
 	tx := repository.transactionContext.PgTx
 	lecturerModel := new(models.Lecturer)
@@ -48,6 +50,7 @@ func (repository *LecturerRepository) Remove(lecturer *lecturer.Lecturer) (*lect
 	}
 	return lecturer, nil
 }
+
 func (repository *LecturerRepository) FindOne(queryOptions map[string]interface{}) (*lecturer.Lecturer, error) {
 	tx := repository.transactionContext.PgTx
 	lecturerModel := new(models.Lecturer)
@@ -69,6 +72,7 @@ func (repository *LecturerRepository) FindOne(queryOptions map[string]interface{
 		}, nil
 	}
 }
+
 func (repository *LecturerRepository) Find(queryOptions map[string]interface{}) (int64, []*lecturer.Lecturer, error) {
 	tx := repository.transactionContext.PgTx
 	var lecturerModels []*models.Lecturer
@@ -104,6 +108,7 @@ func (repository *LecturerRepository) Find(queryOptions map[string]interface{}) 
 		return int64(count), lecturers, nil
 	}
 }
+
 func NewLecturerRepository(transactionContext *pgTransaction.TransactionContext) (*LecturerRepository, error) {
 	if transactionContext == nil {
 		return nil, fmt.Errorf("transactionContext参数不能为nil")
