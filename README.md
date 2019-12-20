@@ -65,7 +65,7 @@
   - env.password : `SuperSecret`
   - persistence.enabled : `false`
 - k8s config变量
-  - postgresql.host : `postgresql`
+  - postgresql.host : `pgsql-postgresql`
   - postgresql.port : `5432`
   - postgresql.user : `postgres`
   - postgresql.password : `123456`
