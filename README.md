@@ -61,8 +61,8 @@
 - pgadmin4 chart地址：`http://47.101.55.93/pgadmin-1.0.5.tgz`
 - pgadmin4 helm 安装参数：
   - service.type: `NodePort`
-  - env.username : `pgadmin4@qq.com`
-  - env.password : `123456`
+  - env.username : `chart@example.local`
+  - env.password : `SuperSecret`
   - persistence.enabled : `false`
 - k8s config变量
   - postgresql.host : `postgresql`
