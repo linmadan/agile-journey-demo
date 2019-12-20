@@ -52,6 +52,19 @@
 - 6.提交代码到github，自动构建应用并部署到开发环境
 - 7.重复`5`,`6`这两个步骤，持续集成，发布到开发环境（每天可进行多次）
 
+### 便捷资源
+- postgresql chart地址：`http://47.101.55.93/postgresql-8.0.0.tgz`
+- postgresql helm 安装参数：
+  - postgresqlUsername ：postgres
+  - postgresqlPassword ：123456
+  - persistence.enabled ：false
+- pgadmin4 chart地址：`http://47.101.55.93/pgadmin-1.0.5.tgz`
+- pgadmin4 helm 安装参数：
+  - service.type: NodePort
+  - env.username : pgadmin4
+  - env.password : 123456
+  - persistence.enabled : false
+
 ### 补充说明
 - ci/cd工具的选择，每个环境的ci/cd具体步骤设定，都需要根据实际情况进行权衡，选择最合适团队的方案
 - 工具与步骤可能不同，但是流程与理念是一致的
